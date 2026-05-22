@@ -1,0 +1,11 @@
+¿Por qué Queue para pedidos y Stack para bitácora? ¿Y si se invierten?
+Bueno en el codigo use Queue (colaPedidos) para los clientes porque es como en la vida real, el primero que llega pide su pizza y se la lleva primero (FIFO). Y use Stack (pilaBitacora) para el historial porque cuando le doy al boton de deshacer, necesito borrar es la ultima accion que hice no la primera (LIFO). Si lo hicieramos al reves seria un desastre, el ultimo que llega se llevaria la pizza de primero y los otros se quedan esperando, y al deshacer estariamos borrando el primer pedido del dia en vez de corregir el error que acabamos de hacer.
+
+¿Por qué es obligatorio verificar Count == 0? ¿Qué pasa si no se hace?
+Es super importante poner el if (colaPedidos.Count == 0) o el de la pila antes de hacer un Dequeue() o Pop(), porque si la lista esta vacia y le digo al programa que saque un dato, el programa explota y se cierra solo tirando un error. Basciamente es como intentar sacar algo de una caja que ya esta vacia.
+
+¿Por qué usar .StartsWith() al deshacer y qué error evita?
+Lo use en el boton de deshacer para que el programa sepa que fue lo ultimo que hice. Porque no es lo mismo deshacer un "PEDIDO:" (que me toca sacarlo de la cola con el ReconstruirCola) que deshacer un "ENTREGADO:" (que ahi mas bien me toca volver a meter al cliente en la cola con Enqueue). Si no le pongo el StartsWith el programa no sabe que accion revertir y termino metiendo o sacando clientes que no son y se daña el orden.
+
+¿Qué ventaja tiene entregar con Fork + Pull Request en vez de un .zip?
+Porque es mucho mas practico y asi se trabaja de verdad. Mandando el Pull Request el profe no tiene que andar descargando un .zip ni abriendo el visual studio, simplemente entra a github y ve de una vez mis cambios (como cuando agregue la cola premium). Ahi le sale en verde lo nuevo que meti y en rojo lo que quite. Tambien es mejor para las correcciones porque el profe me puede dejar un comentario ahi mismo en la linea de codigo exacta y ya.
