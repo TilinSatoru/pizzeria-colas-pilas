@@ -4,15 +4,15 @@
  */
 
 using System;
-using System.Collections.Generic;
+using System.Collections; // Mantenemos la compatibilidad heredada
 using System.Windows.Forms;
 
 namespace laboratoriPizzeriaExpress
 {
     public partial class MainForm : Form
     {
-        private Queue<string> colaPedidos = new Queue<string>();
-        private Stack<string> pilaBitacora = new Stack<string>();
+        private Queue colaPedidos = new Queue();
+        private Stack pilaBitacora = new Stack();
 
         public MainForm()
         {
@@ -22,17 +22,41 @@ namespace laboratoriPizzeriaExpress
 
         private void BtnNuevoPedido_Click(object sender, EventArgs e)
         {
-            // Vaciado para el commit 1
+            string cliente = txtCliente.Text.Trim();
+            
+            // VALIDACIÓN: Evitar registrar textos vacíos
+            if (string.IsNullOrEmpty(cliente))
+            {
+                lblEstado.Text = "⚠️ Error: Debes ingresar el nombre del cliente.";
+                return;
+            }
+
+            colaPedidos.Enqueue(cliente);
+            pilaBitacora.Push(string.Format("PEDIDO: {0}", cliente));
+            
+            txtCliente.Clear();
+            lblEstado.Text = string.Format("✅ Pedido registrado para {0}", cliente);
+            ActualizarUI();
         }
 
         private void BtnEntregar_Click(object sender, EventArgs e)
         {
-            // Vaciado para el commit 1
+            // VALIDACIÓN: Evitar excepciones si la cola está vacía
+            if (colaPedidos.Count == 0)
+            {
+                lblEstado.Text = "❌ No hay pedidos pendientes.";
+                return;
+            }
+
+            string cliente = (string)colaPedidos.Dequeue();
+            pilaBitacora.Push(string.Format("ENTREGADO: {0}", cliente));
+            lblEstado.Text = string.Format("🍕 Pedido entregado a {0}", cliente);
+            ActualizarUI();
         }
 
         private void BtnDeshacer_Click(object sender, EventArgs e)
         {
-            // Vaciado para el commit 1
+            // Se mantiene vacío para el Commit 3
         }
 
         private void BtnLimpiar_Click(object sender, EventArgs e)
