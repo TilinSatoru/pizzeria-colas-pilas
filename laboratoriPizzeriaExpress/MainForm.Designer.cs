@@ -1,4 +1,4 @@
-﻿namespace laboratoriPizzeriaCampusExpress
+﻿namespace laboratoriPizzeriaExpress
 {
     partial class MainForm
     {
